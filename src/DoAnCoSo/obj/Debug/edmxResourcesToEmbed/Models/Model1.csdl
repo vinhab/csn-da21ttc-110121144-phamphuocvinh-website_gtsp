@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QUANLYWEBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="LOAISANPHAM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_SANPHAM_LOAISANPHAM" FromRole="LOAISANPHAM" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="LoaiSanPham" Type="Int32" />
+    <Property Name="LuotXem" Type="Int32" />
+    <Property Name="LuotMua" Type="Int32" />
+    <Property Name="LuotThich" Type="Int32" />
+    <Property Name="GiaBan" Type="Int32" />
+    <Property Name="TinhTrang" Type="Int32" />
+    <Property Name="MoTaNgan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HinhCT1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HinhCT2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MoTaCT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LOAISANPHAM1" Relationship="Self.FK_SANPHAM_LOAISANPHAM" FromRole="SANPHAM" ToRole="LOAISANPHAM" />
+    <NavigationProperty Name="TINHTRANG1" Relationship="Self.FK_SANPHAM_TINHTRANG" FromRole="SANPHAM" ToRole="TINHTRANG" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TINHTRANG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TenTinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_SANPHAM_TINHTRANG" FromRole="TINHTRANG" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="TaiKhoan" />
+    </Key>
+    <Property Name="TaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MSchange_tracking_history">
+    <Key>
+      <PropertyRef Name="internal_table_name" />
+      <PropertyRef Name="table_name" />
+      <PropertyRef Name="start_time" />
+      <PropertyRef Name="end_time" />
+      <PropertyRef Name="rows_cleaned_up" />
+      <PropertyRef Name="cleanup_version" />
+      <PropertyRef Name="comments" />
+    </Key>
+    <Property Name="internal_table_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="table_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="end_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="rows_cleaned_up" Type="Int64" Nullable="false" />
+    <Property Name="cleanup_version" Type="Int64" Nullable="false" />
+    <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_SANPHAM_LOAISANPHAM">
+    <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAISANPHAM">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="LoaiSanPham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SANPHAM_TINHTRANG">
+    <End Role="TINHTRANG" Type="Self.TINHTRANG" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TINHTRANG">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="TinhTrang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QUANLYWEBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LOAISANPHAMs" EntityType="Self.LOAISANPHAM" />
+    <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TINHTRANGs" EntityType="Self.TINHTRANG" />
+    <EntitySet Name="USERs" EntityType="Self.USER" />
+    <EntitySet Name="MSchange_tracking_history" EntityType="Self.MSchange_tracking_history" />
+    <AssociationSet Name="FK_SANPHAM_LOAISANPHAM" Association="Self.FK_SANPHAM_LOAISANPHAM">
+      <End Role="LOAISANPHAM" EntitySet="LOAISANPHAMs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SANPHAM_TINHTRANG" Association="Self.FK_SANPHAM_TINHTRANG">
+      <End Role="TINHTRANG" EntitySet="TINHTRANGs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

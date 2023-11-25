@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanlyWebsiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AnhSanPham">
+    <Key>
+      <PropertyRef Name="MaAnh" />
+    </Key>
+    <Property Name="MaAnh" Type="Int32" Nullable="false" />
+    <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TenAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPs" Relationship="Self.FK_SP_AnhSanPham" FromRole="AnhSanPham" ToRole="SP" />
+  </EntityType>
+  <EntityType Name="LoaiSanPham">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="Int32" Nullable="false" />
+    <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPs" Relationship="Self.Co" FromRole="LoaiSanPham" ToRole="SP" />
+  </EntityType>
+  <EntityType Name="SP">
+    <Key>
+      <PropertyRef Name="MaSanPham" />
+    </Key>
+    <Property Name="MaSanPham" Type="Int32" Nullable="false" />
+    <Property Name="TenSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MaLoaiSP" Type="Int32" />
+    <Property Name="MaAnhSP" Type="Int32" />
+    <NavigationProperty Name="AnhSanPham" Relationship="Self.FK_SP_AnhSanPham" FromRole="SP" ToRole="AnhSanPham" />
+    <NavigationProperty Name="LoaiSanPham" Relationship="Self.Co" FromRole="SP" ToRole="LoaiSanPham" />
+  </EntityType>
+  <Association Name="FK_SP_AnhSanPham">
+    <End Role="AnhSanPham" Type="Self.AnhSanPham" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnhSanPham">
+        <PropertyRef Name="MaAnh" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaAnhSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Co">
+    <End Role="LoaiSanPham" Type="Self.LoaiSanPham" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSanPham">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaLoaiSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanlyWebsite" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AnhSanPhams" EntityType="Self.AnhSanPham" />
+    <EntitySet Name="LoaiSanPhams" EntityType="Self.LoaiSanPham" />
+    <EntitySet Name="SPs" EntityType="Self.SP" />
+    <AssociationSet Name="FK_SP_AnhSanPham" Association="Self.FK_SP_AnhSanPham">
+      <End Role="AnhSanPham" EntitySet="AnhSanPhams" />
+      <End Role="SP" EntitySet="SPs" />
+    </AssociationSet>
+    <AssociationSet Name="Co" Association="Self.Co">
+      <End Role="LoaiSanPham" EntitySet="LoaiSanPhams" />
+      <End Role="SP" EntitySet="SPs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

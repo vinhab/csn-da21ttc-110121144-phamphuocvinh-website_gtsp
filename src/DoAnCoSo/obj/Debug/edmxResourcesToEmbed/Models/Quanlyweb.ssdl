@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanlyWebsiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AnhSanPham">
+    <Key>
+      <PropertyRef Name="MaAnh" />
+    </Key>
+    <Property Name="MaAnh" Type="int" Nullable="false" />
+    <Property Name="URL" Type="varchar" MaxLength="50" />
+    <Property Name="TenAnh" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoaiSanPham">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="int" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SP">
+    <Key>
+      <PropertyRef Name="MaSanPham" />
+    </Key>
+    <Property Name="MaSanPham" Type="int" Nullable="false" />
+    <Property Name="TenSanPham" Type="nvarchar" MaxLength="50" />
+    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="MaLoaiSP" Type="int" />
+    <Property Name="MaAnhSP" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'QuanlyWebsite.dbo.test' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="test">
+          <Property Name="so" Type="int" />
+        </EntityType>-->
+  <Association Name="Co">
+    <End Role="LoaiSanPham" Type="Self.LoaiSanPham" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSanPham">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaLoaiSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SP_AnhSanPham">
+    <End Role="AnhSanPham" Type="Self.AnhSanPham" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnhSanPham">
+        <PropertyRef Name="MaAnh" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaAnhSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanlyWebsiteModelStoreContainer">
+    <EntitySet Name="AnhSanPham" EntityType="Self.AnhSanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiSanPham" EntityType="Self.LoaiSanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SP" EntityType="Self.SP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Co" Association="Self.Co">
+      <End Role="LoaiSanPham" EntitySet="LoaiSanPham" />
+      <End Role="SP" EntitySet="SP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SP_AnhSanPham" Association="Self.FK_SP_AnhSanPham">
+      <End Role="AnhSanPham" EntitySet="AnhSanPham" />
+      <End Role="SP" EntitySet="SP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
