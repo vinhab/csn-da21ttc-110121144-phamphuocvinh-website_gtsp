@@ -1,5 +1,4 @@
-﻿@model List<DoAnCoSo.Models.SANPHAM>
-
+﻿@model DoAnCoSo.Namespace.HomePageViewModel
 @{
     ViewBag.Title = "Trang chủ";
 }
@@ -71,33 +70,9 @@
     <div name="sps" id="sps">
         <h4>Sản Phẩm Bán Chạy</h4>
         <div name="banchay" class="row" id="banchay">
-            @{
-                for (int i = 0; i < Model.Count; i++)
-                {
-                    for (int j = 0; j < Model.Count; j++)
-                    {
-                        if (Model[i].LuotXem > Model[j].LuotXem)
-                        {
-                            var t = Model[i];
-                            Model[i] = Model[j];
-                            Model[j] = t;
-                        }
-                    }
-                }
-                for (int i = 0; i < 5; i++)
-                {
-                    <div class="col sp">
-                        <a href="@Url.Action("Detail","Product", new {Id = Model[i].ID })">
-                            <div class="overflow-hidden">
-                                <img src="~/Content/Images/sanpham/@Model[i].HinhAnh" />
-                            </div>
-                            <h6>@Model[i].TenSanPham</h6>
-                            <h6 class="link-danger">@Model[i].GiaBan</h6>
-                        </a>
-                    </div>
-                }
-            }
+            @Html.Partial("_ProductList", Model.sanphambanchay.Take(5))
         </div>
+
         <div class="row" id="banner2">
             <div class="col-6 sp">
                 <a href="#">
@@ -114,37 +89,12 @@
                     <img src="~/Content/Images/gt-sp2.jpg" />
                 </a>
             </div>
+
         </div>
         <h4>Sản phẩm được yêu thích</h4>
-        <di name="yeuthich" class="row" id="yeuthich">
-            @{
-
-                for (int i = 0; i < Model.Count; i++)
-                {
-                    for (int j = 0; j < Model.Count; j++)
-                    {
-                        if (Model[i].LuotThich > Model[j].LuotThich)
-                        {
-                            var t = Model[i];
-                            Model[i] = Model[j];
-                            Model[j] = t;
-                        }
-                    }
-                }
-                for (int i = 0; i < 5; i++)
-                {
-                    <div class="col sp">
-                        <a href="@Url.Action("Detail","Product", new {Id = Model[i].ID })">
-                            <div class="overflow-hidden">
-                                <img src="~/Content/Images/sanpham/@Model[i].HinhAnh" />
-                            </div>
-                            <h6>@Model[i].TenSanPham</h6>
-                            <h6 class="link-danger">@Model[i].GiaBan</h6>
-                        </a>
-                    </div>
-                }
-            }
-        </di>
+        <div name="yeuthich" class="row" id="yeuthich">
+            @Html.Partial("_ProductList", Model.sanphamyeuthich.Take(5))
+        </div>
         <div class="row" id="banner2">
             <div class="col-4">
                 <a href="#">

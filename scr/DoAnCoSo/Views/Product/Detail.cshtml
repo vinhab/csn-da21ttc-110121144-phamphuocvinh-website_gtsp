@@ -1,4 +1,5 @@
-﻿@model DoAnCoSo.Models.SANPHAM
+﻿@model DoAnCoSo.Models.DATHANG
+
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,17 +9,22 @@
         padding: 40px 32px;
     }
 
-    .col{
+    .col {
         padding: 0 12px;
     }
 
-    .col img{
-        padding:0px;
+        .col img {
+            padding: 0px;
+        }
+
+    h1 {
+        margin: 8px 0;
     }
 
-    h1{
-        margin:8px 0;
+    .container {
+        padding: 0;
     }
+
     #sl {
         width: 20px;
         text-align: center;
@@ -27,24 +33,27 @@
         height: 30px;
         border: 1px solid #ccc;
     }
-    a{
-        color:black;
-        text-decoration:none;
-    }
-    a.linkh{
-        color:#ccc;
+
+    a {
+        color: black;
+        text-decoration: none;
     }
 
-    a.linkh:hover{
-        color: black;
-    }
-    #giam, #them{
-        height:30px;
-        width:20px;
-        text-align:center;
-        border:1px solid #ccc;
-        margin:0; 
-        padding:0px;
+        a.linkh {
+            color: #ccc;
+        }
+
+            a.linkh:hover {
+                color: black;
+            }
+
+    #giam, #them {
+        height: 30px;
+        width: 20px;
+        text-align: center;
+        border: 1px solid #ccc;
+        margin: 0;
+        padding: 0px;
     }
 
     /* Ẩn các nút tăng giảm mặc định của ô nhập liệu số */
@@ -61,13 +70,14 @@
     */
 
     div#sps {
-        padding: 0px 15px;
+        padding: 0;
         text-align: center;
     }
 
     #sps img {
         width: 100%;
     }
+
     h4 {
         margin: 20px 0;
         margin-top: 40px;
@@ -76,11 +86,11 @@
     h6 {
         margin: 8px 0 0 0;
     }
+
     .sp div:hover img {
         transform: scale(1.1,1.1);
         transition: all 1s ease;
     }
-   
 </style>
 <div class="container mt-5">
     <div class="row">
@@ -88,13 +98,13 @@
             <div id="productImages" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="~/Content/Images/sanpham/@Model.HinhAnh" class="d-block w-100" />
+                        <img src="~/Content/Images/sanpham/@ViewBag.Product.HinhAnh" class="d-block w-100" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/Content/Images/sanpham/spct/@Model.HinhCT1" class="d-block w-100" />
+                        <img src="~/Content/Images/sanpham/spct/@ViewBag.Product.HinhCT1" class="d-block w-100" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/Content/Images/sanpham/spct/@Model.HinhCT2" class="d-block w-100" />
+                        <img src="~/Content/Images/sanpham/spct/@ViewBag.Product.HinhCT2" class="d-block w-100" />
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#productImages" role="button" data-bs-slide="prev">
@@ -108,95 +118,109 @@
             </div>
             <div class="row mt-2">
                 <div class="col">
-                    <img src="~/Content/Images/sanpham/@Model.HinhAnh" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="0">
+                    <img src="~/Content/Images/sanpham/@ViewBag.Product.HinhAnh" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="0">
                 </div>
                 <div class="col">
-                    <img src="~/Content/Images/sanpham/spct/@Model.HinhCT1" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="1">
+                    <img src="~/Content/Images/sanpham/spct/@ViewBag.Product.HinhCT1" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="1">
                 </div>
                 <div class="col">
-                    <img src="~/Content/Images/sanpham/spct/@Model.HinhCT2" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="2">
+                    <img src="~/Content/Images/sanpham/spct/@ViewBag.Product.HinhCT2" class="img-thumbnail img-fluid" alt="Tên sản phẩm" data-bs-target="#productImages" data-bs-slide-to="2">
                 </div>
             </div>
         </div>
         <div class="col-lg-6" style="padding-left:40px">
-            <a href="#" class="linkh">TRANG CHỦ /</a> <a href="#" class="linkh">@Model.LOAISANPHAM1.TenLoai</a>
-            <h1>@Model.TenSanPham</h1>
-            <p>@Model.MoTaNgan</p>
-            <p><strong>@Model.GiaBan</strong><strong>đ</strong></p>
-            <form action="#">
-                <label>
-                    Số lượng: <button id="giam">-</button>
-                    <input type="number" id="sl" value="1" min="1" max="99" />
-                    <button id="them">+</button>
-
-                </label>
-                <br />
-                <br />
-                <button class="btn btn-primary">Thêm vào giỏ</button>
-                <button class="btn btn-danger">Liên hệ</button>
-            </form>
+            <a href="#" class="linkh">TRANG CHỦ /</a> <a href="#" class="linkh">@ViewBag.Product.LOAISANPHAM1.TenLoai</a>
+            <h1>@ViewBag.Product.TenSanPham</h1>
+            <p>@ViewBag.Product.MoTaNgan</p>
+            <p><strong>@ViewBag.Product.GiaBan</strong><strong>đ</strong></p>
+            <label>
+                Số lượng: <button id="giam">-</button>
+                <input type="number" id="sl" value="1" min="1" max="99" />
+                <button id="them">+</button>
+            </label>
+            <br />
+            <br />
+            <a href="@Url.Action("themdon","Product",new { Id = ViewBag.Product.ID })"><button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="mdo" id="lienhe">Liên hệ</button></a>
             <br />
             <div>
                 <h5>Chi tiết sản phẩm</h5>
-                <p>@Model.MoTaCT</p>
+                <p>@ViewBag.Product.MoTaCT</p>
             </div>
-
         </div>
     </div>
     <div id="sps">
         <br />
         <h4>Sản phẩm khác</h4>
         <div name="yeuthich" class="row" id="yeuthich">
-            @{
 
-                int[] soTu1DenN = new int[ViewBag.sp.Count];
-                for (int i = 0; i < ViewBag.sp.Count - 1; i++)
-                {
-                    soTu1DenN[i] = i + 1;
-                }
-                int[] ChonNgauNhienNPhanTu(int[] m, int soLuong)
-                {
-                    // Sử dụng lớp Random để tạo số ngẫu nhiên
-                    Random random = new Random();
-
-                    // Chọn ngẫu nhiên 'soLuong' phần tử từ mảng
-                    int[] mangMoi = m.OrderBy(x => random.Next()).Take(soLuong).ToArray();
-
-                    return mangMoi;
-                }
-                int[] mang = ChonNgauNhienNPhanTu(soTu1DenN, 5);
-
-                // 
-                foreach (int value in mang)
-                {
-                    <div class="col sp">
-                        <a href="@Url.Action("Detail","Product", new {Id = ViewBag.sp[value].ID })">
-                            <div class="overflow-hidden">
-                                <img src="~/Content/Images/sanpham/@ViewBag.sp[value].HinhAnh" />
-                            </div>
-                            <h6>@ViewBag.sp[value].TenSanPham</h6>
-                            <h6 class="link-danger">@ViewBag.sp[value].GiaBan</h6>
-                        </a>
-                    </div>
-                }
+            @foreach (var value in ViewBag.RelatedProducts)
+            {
+                <div class="col sp">
+                    <a href="@Url.Action("Detail", "Product", new { Id = value.ID })">
+                        <div class="overflow-hidden">
+                            <img src="~/Content/Images/sanpham/@value.HinhAnh" />
+                        </div>
+                        <h6>@value.TenSanPham</h6>
+                        <h6 class="link-danger">@value.GiaBan</h6>
+                    </a>
+                </div>
             }
+
         </div>
         <br />
         <br />
     </div>
 </div>
-    <script>
-        var btn1 = document.querySelector('#giam')
-        var btn2 = document.querySelector('#them')
-        var sl = document.querySelector('#sl')
-        btn1.onclick = () => {
-            if (sl.value > 1) {
-                sl.value = Number(sl.value) - 1;
-            }
+<script>
+    var btn1 = document.querySelector('#giam')
+    var btn2 = document.querySelector('#them')
+    var btn3 = document.querySelector('#lienhe')
+    var sl = document.querySelector('#sl')
+    var slm = document.querySelector('#recipient-name')
+    var thongtin = document.querySelector('#thongtin')
+
+    btn1.onclick = () => {
+        if (sl.value > 1) {
+            sl.value = Number(sl.value) - 1;
         }
-        btn2.onclick = () => {
-            if (sl.value < 99) {
-                sl.value = Number(sl.value) + 1;
-            }
+    }
+    btn2.onclick = () => {
+        if (sl.value < 99) {
+            sl.value = Number(sl.value) + 1;
         }
-    </script>
+    }
+     thongtin.innerHTML = `
+     <div>
+         </br>
+         <p>
+             Đơn giá: @ViewBag.Product.GiaBan
+         </p>
+         </br>
+         <p name="TongTien">
+             <b>Thành tiền:</b> ${sl.value * Number(@ViewBag.Product.GiaBan)}
+         </p>
+     </div>`
+     btn3.onclick = () => {
+         slm.value = sl.value
+         tt.value = sl.value * Number(@ViewBag.Product.GiaBan);
+
+     }
+     slm.oninput = () => {
+         thongtin.innerHTML = `
+          <div>
+          </br>
+             <p>
+                 <b>Đơn giá:</b> @ViewBag.Product.GiaBan
+             </p>
+             </br>
+             <p name="TongTien">
+                <b>Thành tiền:</b> ${slm.value * Number(@ViewBag.Product.GiaBan)}
+              </p>
+         </div>`
+     }
+</script>
+
+
+
+
+

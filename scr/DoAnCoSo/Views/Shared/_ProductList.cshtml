@@ -1,0 +1,16 @@
+﻿@model IEnumerable<DoAnCoSo.Models.SANPHAM>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col sp">
+            <a href="@Url.Action("Detail", "Product", new { Id = product.ID })">
+                <div class="overflow-hidden">
+                    <img src="~/Content/Images/sanpham/@product.HinhAnh" />
+                </div>
+                <h6>@product.TenSanPham</h6>
+                <h6 class="link-danger">@product.GiaBan</h6>
+            </a>
+        </div>
+    }
+</div>

@@ -10,9 +10,11 @@
 namespace DoAnCoSo.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Linq;
+
     public partial class QUANLYWEBEntities : DbContext
     {
         public QUANLYWEBEntities()
@@ -24,12 +26,20 @@ namespace DoAnCoSo.Models
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+        public virtual List<SANPHAM> danhsachbanchay(int so) {
+            var sxBanchay = SANPHAMs.OrderByDescending(p => p.LuotMua);
+            var ds = sxBanchay.Take(so).ToList();
+            return ds;
+        }
+        public virtual List<SANPHAM> danhsachyeuthich(int so)
+        {
+            var sxBanchay = SANPHAMs.OrderByDescending(p => p.LuotThich);
+            var ds = sxBanchay.Take(so).ToList();
+            return ds;
+        }
+        public virtual DbSet<DATHANG> DATHANGs { get; set; }
         public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TINHTRANG> TINHTRANGs { get; set; }
-        public virtual DbSet<USER> USERs { get; set; }
-        public virtual DbSet<MSchange_tracking_history> MSchange_tracking_history { get; set; }
     }
 }

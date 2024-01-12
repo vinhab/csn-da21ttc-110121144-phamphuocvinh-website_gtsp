@@ -14,6 +14,12 @@ namespace DoAnCoSo.Models
     
     public partial class SANPHAM
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SANPHAM()
+        {
+            this.DATHANGs = new HashSet<DATHANG>();
+        }
+    
         public int ID { get; set; }
         public string TenSanPham { get; set; }
         public string HinhAnh { get; set; }
@@ -28,6 +34,8 @@ namespace DoAnCoSo.Models
         public string HinhCT2 { get; set; }
         public string MoTaCT { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DATHANG> DATHANGs { get; set; }
         public virtual LOAISANPHAM LOAISANPHAM1 { get; set; }
         public virtual TINHTRANG TINHTRANG1 { get; set; }
     }
